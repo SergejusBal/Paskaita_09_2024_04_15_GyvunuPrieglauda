@@ -76,7 +76,7 @@ public class Prieglauda {
                 pasalintiGyvuna();
                 break;
             default:
-                System.out.println(ERRORZINUTE);
+                System.out.println("Tokios Operacijos nera");
                 break;
         }
     }
