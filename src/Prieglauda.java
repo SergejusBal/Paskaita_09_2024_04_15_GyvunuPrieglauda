@@ -127,7 +127,7 @@ public class Prieglauda {
     private SunsVeisle nuskanuotiVeisle() {
         int index = nuskanuotiIntVerte()-1;
 
-        if (index > SunsVeisle.values().length) {
+        if (index > SunsVeisle.values().length - 1) {
             System.out.println(ERRORZINUTE);
             return nuskanuotiVeisle();
         }
@@ -138,7 +138,7 @@ public class Prieglauda {
     private KailioSpalva nuskanuotiKatesKailioSpava(){
         int index = nuskanuotiIntVerte()-1;
 
-        if (index > KailioSpalva.values().length) {
+        if (index > KailioSpalva.values().length - 1) {
             System.out.println(ERRORZINUTE);
             return nuskanuotiKatesKailioSpava();
         }
