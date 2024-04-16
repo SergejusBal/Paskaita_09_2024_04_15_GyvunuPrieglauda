@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Prieglauda {
     private ArrayList<Gyvunas> gyvunuSarasas;
     private Scanner scanner;
+    private static String ERRORZINUTE = "Ivyko Klaida, bandykite dar karta.";
 
     public Prieglauda() {
         this.gyvunuSarasas = new ArrayList<>();
@@ -75,10 +76,11 @@ public class Prieglauda {
                 pasalintiGyvuna();
                 break;
             default:
-                System.out.println("Tokios paslaugos neteikiame");
+                System.out.println(ERRORZINUTE);
                 break;
         }
     }
+
 
     private void spauzdintiGyvunuSarasa(){
         for(Gyvunas g : gyvunuSarasas){
@@ -87,28 +89,7 @@ public class Prieglauda {
     }
     private Gyvunas gautiGyvunoTipa(){
         System.out.println("Iveskite gyvuno tipa: Sou (1), Kate (2), Paukstis (3)");
-        int gyvunoTipas = -1;
-        gyvunoTipas = nuskanuotiIntVerte();
-
-        Gyvunas gyvunas = null;
-        switch(gyvunoTipas){
-            case 1:
-                gyvunas = new Sou();
-                ((Sou) gyvunas).setVeisle(gautiVeisle());
-                break;
-            case 2:
-                gyvunas = new Kate();
-                ((Kate) gyvunas).setKailioSpalva(gautiKatesKailioSpava());
-                break;
-            case 3:
-                gyvunas = new Paukstis();
-                ((Paukstis) gyvunas).setSparnuIlgis(gautiSparnuIlgi());
-                break;
-            default:
-                System.out.println("Ivyko Klaida, bandykite dar karta.");
-                return gautiGyvunoTipa();
-        }
-        return gyvunas;
+        return  nuskanuotiGyvunoTipa();
     }
 
     private String gautiGyvunoVarda(){
@@ -129,34 +110,66 @@ public class Prieglauda {
     private SunsVeisle gautiVeisle() {
         System.out.println("Pasirinkite veisle: \n" +
                 "Labradoro (1), Aviganis (2), Biglis (3), Terjeras (4), Buldogas (5)");
-        int index = nuskanuotiIntVerte()-1;
-
-
-        if (index > SunsVeisle.values().length) {
-            System.out.println("Ivyko Klaida, bandykite dar karta.");
-            return gautiVeisle();
-        }
-
-        return SunsVeisle.values()[index];
+        return nuskanuotiVeisle();
     }
 
     private KailioSpalva gautiKatesKailioSpava(){
         System.out.println("Pasirinkite Kailio Spalva: \n" +
                 "Baltas (1), Juodas (2), Rudas (3), Margas (4), Ryzas (5)");
-        int index = nuskanuotiIntVerte()-1;
-
-        if (index > KailioSpalva.values().length) {
-            System.out.println("Ivyko Klaida, bandykite dar karta.");
-            return gautiKatesKailioSpava();
-        }
-
-        return KailioSpalva.values()[index];
+        return nuskanuotiKatesKailioSpava();
     }
+
     private double gautiSparnuIlgi(){
         System.out.println("Iveskite sparnu ilgi: ");
         return nuskanuotiDoubleVerte();
     }
 
+    private SunsVeisle nuskanuotiVeisle() {
+        int index = nuskanuotiIntVerte()-1;
+
+        if (index > SunsVeisle.values().length) {
+            System.out.println(ERRORZINUTE);
+            return nuskanuotiVeisle();
+        }
+        return SunsVeisle.values()[index];
+    }
+
+
+    private KailioSpalva nuskanuotiKatesKailioSpava(){
+        int index = nuskanuotiIntVerte()-1;
+
+        if (index > KailioSpalva.values().length) {
+            System.out.println(ERRORZINUTE);
+            return nuskanuotiKatesKailioSpava();
+        }
+        return KailioSpalva.values()[index];
+    }
+
+
+    private Gyvunas nuskanuotiGyvunoTipa(){
+        int gyvunoTipas = -1;
+        gyvunoTipas = nuskanuotiIntVerte();
+
+        Gyvunas gyvunas = null;
+        switch(gyvunoTipas){
+            case 1:
+                gyvunas = new Sou();
+                ((Sou) gyvunas).setVeisle(gautiVeisle());
+                break;
+            case 2:
+                gyvunas = new Kate();
+                ((Kate) gyvunas).setKailioSpalva(gautiKatesKailioSpava());
+                break;
+            case 3:
+                gyvunas = new Paukstis();
+                ((Paukstis) gyvunas).setSparnuIlgis(gautiSparnuIlgi());
+                break;
+            default:
+                System.out.println(ERRORZINUTE);
+                return nuskanuotiGyvunoTipa();
+        }
+        return gyvunas;
+    }
 
     private String nuskanuotiStringVerte(){
         return nuskaityti();
@@ -167,7 +180,7 @@ public class Prieglauda {
         try {
             i = Integer.parseInt(nuskaityti());
         } catch (NumberFormatException e) {
-            System.out.println("Ivyko Klaida, bandykite dar karta.");
+            System.out.println(ERRORZINUTE);
             return nuskanuotiIntVerte();
         }
         return i;
@@ -178,7 +191,7 @@ public class Prieglauda {
         try {
             i = Double.parseDouble(nuskaityti());
         } catch (NumberFormatException e) {
-            System.out.println("Ivyko Klaida, bandykite dar karta.");
+            System.out.println(ERRORZINUTE);
             return nuskanuotiDoubleVerte();
         }
         return i;
@@ -199,7 +212,7 @@ public class Prieglauda {
             String scVerte = scanner.nextLine();
             if(scVerte.toUpperCase().equals("T")) return true;
             else if (scVerte.toUpperCase().equals("N")) return false;
-            else System.out.println("Ivyko Klaida, bandykite dar karta.");
+            else System.out.println(ERRORZINUTE);
         }
     }
 
